@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation=" http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+	
+	<!-- XML file based dependency injection using class Bike -->
+	<bean id="bike" class="springCore.Bike">
+		<property name = "id" value = "1"></property>
+		<property name = "name" value = "Activa"></property>
+		<property name = "price" value = "50000"></property>
+	</bean>
+	
+	<!-- Annotation base dependency injection using class Car -->
+	<context:component-scan base-package="springCore"></context:component-scan>
+	
+	<bean id="tyre" class="springCore.Tyre">
+		<constructor-arg value="MRF"></constructor-arg>
+	</bean>
+</beans>
