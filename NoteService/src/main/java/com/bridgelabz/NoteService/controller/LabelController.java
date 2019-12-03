@@ -1,8 +1,10 @@
 package com.bridgelabz.NoteService.controller;
 
-import java.util.List;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -12,9 +14,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.NoteService.dto.LabelDto;
-import com.bridgelabz.NoteService.model.Label;
 import com.bridgelabz.NoteService.response.Response;
 import com.bridgelabz.NoteService.service.LabelService;
+/******************************************************************************
+ *  Compilation:  javac -d bin LabelController.java
+ *  Execution:    
+ *              
+ *  
+ *  Purpose: This class is used as rest controller for label
+ *
+ *  @author  Sourabh Magdum
+ *  @version 1.0
+ *  @since   26-11-2019
+ *
+ ******************************************************************************/
+
+
 
 @RestController
 @RequestMapping("/label")
@@ -22,43 +37,89 @@ public class LabelController {
 	@Autowired
 	private LabelService labelService;
 	
-//	@GetMapping("/show")
-//	public List<Note> listOfNotes()
-//	{
-//		return noteService.getNoteList();
-//	}
+	//Logger logger = LoggerFactory.getLogger(LabelController.class);
+
+	/**
+	 * Purpose - Used get list of all labels of perticular user
+	 * @param - accepts username
+	 * @return - List of labels
+	 */
 	@PostMapping("/getlabel")
-	public List<Label> getLabel(@RequestParam String username)
+	public ResponseEntity<Response> getLabel(@RequestParam String username)
 	{
-		return labelService.getLabelByUsername(username);
+		
+		return new ResponseEntity<Response>(labelService.getLabelByUsername(username),HttpStatus.OK);
 	}
+	
+	
+	/**
+	 * Purpose - Used to add label
+	 * @param - Accepts label
+	 * @param - Accepts token
+	 * @return - status
+	 */
 	@PostMapping("/add")
-	public String addnote(@RequestBody LabelDto label,@RequestParam String token)
+	public ResponseEntity<Response> addnote(@RequestBody @Valid LabelDto label,@RequestParam String token)
 	{
-		labelService.addLabel(label,token);
-		return "Label Added SuccessFully";
+		return new ResponseEntity<Response>(labelService.addLabel(label,token),HttpStatus.OK);
 	}
 	
+	/**
+	 * Purpose - Used to delete label
+	 * @param - Acccepts label id
+	 * @return - status
+	 */
 	@DeleteMapping("/delete")
-	public String deleteNote(@RequestParam String id)
+	public ResponseEntity<Response> deleteNote(@RequestParam String id)
 	{
-		return labelService.deleteLabel(id); 
+		return new ResponseEntity<Response>(labelService.deleteLabel(id),HttpStatus.OK);
 	}
 	
+	/**
+	 * Purpose - Used To update label
+	 * @param - Accepts label id
+	 * @param - Accepts new label
+	 * @return - Status
+	 */
 	@PutMapping("/update")
-	public String update(@RequestParam String id,@RequestBody LabelDto label)
+	public ResponseEntity<Response> update(@RequestParam String id,@RequestBody @Valid LabelDto label)
 	{
-		return labelService.updateLabel(id, label);
+		return new ResponseEntity<Response>(labelService.updateLabel(id, label),HttpStatus.OK);
 	}
 	
+	/**
+	 * Purpose - Used to assign note to label
+	 * @param - accepts noteId
+	 * @param - Accepts labelId
+	 * @return - status
+	 */
 	@PostMapping("/assignNote")
-	public String assignNote(@RequestParam String noteId,@RequestParam String labelId)
+	public ResponseEntity<Response> assignNoteToLabel(@RequestParam String noteId,@RequestParam String labelId)
 	{
-		return labelService.assignNote(noteId,labelId);
+		return new ResponseEntity<Response>(labelService.assignNoteToLabel(noteId,labelId),HttpStatus.OK);
 	}
-	@PostMapping("/getNotes")
-	public Response getNoteByLabelId(@RequestParam String labelId)
+	
+	/**
+	 * @Purpose - Used to Delete note from label
+	 * @param noteId - accepts noteId
+	 * @param labelId - Accepts labelId
+	 * @return - status
+	 */
+	@PostMapping("/deleteNote")
+	public ResponseEntity<Response> deleteNoteFromLabel(@RequestParam String noteId,@RequestParam String labelId)
 	{
-		return labelService.getNoteByLabelId(labelId);
+		return new ResponseEntity<Response>(labelService.deleteNoteFromLabel(noteId,labelId),HttpStatus.OK);
+	}
+	
+	
+	/**
+	 * Purpose - Used to list of notes assigned to preticular label
+	 * @param - accepts labelId
+	 * @return - List of notes
+	 */
+	@PostMapping("/getNotes")
+	public ResponseEntity<Response> getNoteByLabelId(@RequestParam String labelId)
+	{
+		return new ResponseEntity<Response>(labelService.getNoteByLabelId(labelId),HttpStatus.OK);
 	}
 }

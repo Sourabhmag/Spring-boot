@@ -1,13 +1,22 @@
 package com.bridgelabz.fundoouser.services;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Base64;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoouser.Response.Response;
 import com.bridgelabz.fundoouser.dto.ForgotPassworddto;
@@ -43,8 +52,12 @@ public class UserServices {
 	private ModelMapper mapper;
 	@Autowired
 	private RabbitTemplate template;
+	@Autowired
+    private FileStorageService fileStorageService;
+	
 	public Registration reg;
 	public String Token;
+	private String path = "/home/user/Documents/workspace-sts-3.9.10.RELEASE/FundooUser/uploads/";
 	/**
 	 * @Purpose - Returns list of all users
 	 * @return List of all users
@@ -213,5 +226,68 @@ public class UserServices {
 		
 		updateUser(username, user);
 		return new Response(200, "Password reset successfull", user);
+	}
+	/**
+	 * @Purpose - Used to set profile Pic of user
+	 * @param file - Accepts image file
+	 * @param email - Accepts username
+	 * @return - Status of operation
+	 */
+	public Response uploadImg(MultipartFile file,String email) {
+		Registration user = getUser(email);
+		if(user == null)
+			throw new RegistrationException(MessageReference.USER_NOT_FOUND);
+		String fileName = fileStorageService.storeFile(file,email);
+		
+		String fileDownloadUri = path+fileName;
+		
+		user.setProfilePic(fileDownloadUri);
+		userRepository.save(user);
+		return new Response(200,MessageReference.PROFILE_PIC_UPLOADED,fileDownloadUri);
+	}
+	
+	
+	/**
+	 *  @Purpose - Used to get profile Pic of user
+	 * @param email - Accepts username
+	 * @param request - Accepts Request
+	 * @return - Status of operation
+	 */
+	public ResponseEntity<Resource> getProfilePic(String email, HttpServletRequest request) {
+		Registration user = getUser(email);
+		if(user == null)
+			throw new RegistrationException(MessageReference.USER_NOT_FOUND);
+		Resource resource =	fileStorageService.loadFileAsResource(user.getProfilePic());
+		
+		String contentType = null;
+		try {
+			contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(contentType==null)
+			contentType="application/octet-stream";
+		return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(contentType))
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
+		
+	}
+	/**
+	 * @Purpose - Used to delete profile Pic of user
+	 * @param email - Accepts username
+	 * @return - Status of operation
+	 */
+	public Response deleteProfilePic(String email) {
+		Registration user = getUser(email);
+		String filePath = user.getProfilePic();
+		File file = new File(filePath);
+		if(file.delete()) {
+			user.setProfilePic(null);
+			userRepository.save(user);
+			return new Response(200,MessageReference.FILE_DELETED,null);
+			}
+		return new Response(400,MessageReference.FILE_NOT_FOUND,null);
 	}
 }

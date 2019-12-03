@@ -1,6 +1,7 @@
 package com.bridgelabz.fundoouser.configuration;
 
 import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.FanoutExchange;
 import org.springframework.amqp.core.Binding;
 
 import org.springframework.amqp.core.Queue;

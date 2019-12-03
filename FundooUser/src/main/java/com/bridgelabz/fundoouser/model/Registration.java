@@ -27,6 +27,7 @@ public class Registration {
 	private String password;
 	@Transient
 	private String checkPassword;
+	private String profilePic;
 	private boolean validate;
 	public Registration() {
 		

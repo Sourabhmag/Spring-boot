@@ -2,9 +2,11 @@ package com.bridgelabz.fundoouser.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.bridgelabz.fundoouser.Response.Response;
 import com.bridgelabz.fundoouser.dto.ForgotPassworddto;
@@ -46,7 +50,6 @@ public class UserController {
 	// Method to print all data
 	@GetMapping("/user")
 	public List<Registration> getUsersData() {
-		System.out.println("in get");
 		return userServices.getUserList();
 	}
 
@@ -57,13 +60,33 @@ public class UserController {
 	}
 	
 	// Method to add new User
-	@PostMapping("/register")
+	@PostMapping(value = "/register")
 	public ResponseEntity<Response> addUser(@Valid @RequestBody Registerdto user) {
 		
 		return new ResponseEntity<Response>(userServices.addUser(user),HttpStatus.OK);
 		
 	}
+	
+	// Used to add profile pic of user
+	@PostMapping(value = "/uploadImg",consumes = "multipart/form-data")
+	public ResponseEntity<Response> uploadImg(@RequestHeader String email,MultipartFile file)
+	{
+		return new ResponseEntity<Response>(userServices.uploadImg(file,email),HttpStatus.OK);
+	}
+	
+	// Used to retrive profile pic of user
+	@GetMapping("/getProfilePic/{email:.+}")
+	public ResponseEntity<Resource> getProfilePic(@PathVariable String email,HttpServletRequest request)
+	{
+		return userServices.getProfilePic(email,request);
+	}
 
+	// Used to delete profile pic of user
+	@PutMapping("/deleteProfilePic")
+	public ResponseEntity<Response> deleteProfilePic(@RequestHeader String email)
+	{
+		return new ResponseEntity<Response>(userServices.deleteProfilePic(email),HttpStatus.OK);
+	}
 	// Method to update data of existing user
 	@PutMapping("/user/{email}")
 	public ResponseEntity<Response> updateUser(@Valid @RequestBody Registerdto user, @PathVariable String email) {

@@ -1,3 +1,4 @@
+
 package com.bridgelabz.fundoouser.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ public class MessageReceiver {
 	
 	public void sendMessage(Rabbitmq body)
 	{
+		System.out.println("rabbit mq body--->"+body);
 		SimpleMailMessage msg = new SimpleMailMessage();
 		msg.setTo(body.getEmail());
 		msg.setSubject(body.getSubject());
