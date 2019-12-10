@@ -34,78 +34,78 @@ import com.bridgelabz.NoteService.service.ElasticSearchService;
 @RequestMapping("/elastic")
 public class ElasticSearchController {
 
-	@Autowired
-	private ElasticSearchService elasticSearchService;
-	
-	/**
-	 * @Pupose - Used to get all notes 
-	 * @param id - Accepts note id
-	 * @return - Returns note
-	 * @throws Exception
-	 */
-	@PostMapping("/ela/{id}")
-	public ResponseEntity<Response> getNote(@PathVariable String id) throws Exception
-	{
-		return new ResponseEntity<Response>(elasticSearchService.findById(id),HttpStatus.OK);
-	}
-	
-	/**
-	 * @Pupose - Used to add note
-	 * @param note - Accepts note
-	 * @return - Status of operation
-	 * @throws IOException
-	 */
-	@PostMapping("/addNote")
-	public ResponseEntity<Response> addNote(@RequestBody NoteDto note) throws IOException
-	{
-		return new ResponseEntity<Response>(elasticSearchService.addNote(note),HttpStatus.OK);
-	}
-	
-	/**
-	 * @Pupose - Used to update note
-	 * @param newNote - Accepts note
-	 * @param noteId - Accepts note id
-	 * @return - Status of operation
-	 * @throws IOException
-	 */
-	@PutMapping("/update")
-	public ResponseEntity<Response> update(@RequestBody NoteDto newNote,@RequestHeader String noteId) throws IOException
-	{
-		return new ResponseEntity<Response>(elasticSearchService.update(newNote,noteId),HttpStatus.OK);
-	}
-	
-	/**
-	 * @Pupose - Used to delete note
-	 * @param noteId - Accepts note id
-	 * @return - Status of operation
-	 * @throws IOException
-	 */
-	@PutMapping("/delete")
-	public ResponseEntity<Response> delete(@RequestHeader String noteId) throws IOException
-	{
-		return new ResponseEntity<Response>(elasticSearchService.delete(noteId),HttpStatus.OK);
-	}
-	
-	/**
-	 * @Pupose - Used to get all notes
-	 * @return - Status of operation
-	 * @throws IOException
-	 */
-	@GetMapping("/getAllNotes")
-	public ResponseEntity<Response> getAllNotes() throws IOException
-	{
-		return new ResponseEntity<Response>(elasticSearchService.findAll(),HttpStatus.OK);
-	}
-	
-	/**
-	 * @Pupose - Used to search note by title
-	 * @param title - Accepts title
-	 * @return - Status of operation
-	 * @throws IOException
-	 */
-	@PutMapping("/searchByTitle")
-	public ResponseEntity<Response> searchByTitle(@RequestHeader String title) throws IOException
-	{
-		return new ResponseEntity<Response>(elasticSearchService.searchByTitle(title),HttpStatus.OK);
-	}
+//	@Autowired
+//	private ElasticSearchService elasticSearchService;
+//	
+//	/**
+//	 * @Pupose - Used to get all notes 
+//	 * @param id - Accepts note id
+//	 * @return - Returns note
+//	 * @throws Exception
+//	 */
+//	@PostMapping("/ela/{id}")
+//	public ResponseEntity<Response> getNote(@PathVariable String id) throws Exception
+//	{
+//		return new ResponseEntity<Response>(elasticSearchService.findById(id),HttpStatus.OK);
+//	}
+//	
+//	/**
+//	 * @Pupose - Used to add note
+//	 * @param note - Accepts note
+//	 * @return - Status of operation
+//	 * @throws IOException
+//	 */
+//	@PostMapping("/addNote")
+//	public ResponseEntity<Response> addNote(@RequestBody NoteDto note) throws IOException
+//	{
+//		return new ResponseEntity<Response>(elasticSearchService.addNote(note),HttpStatus.OK);
+//	}
+//	
+//	/**
+//	 * @Pupose - Used to update note
+//	 * @param newNote - Accepts note
+//	 * @param noteId - Accepts note id
+//	 * @return - Status of operation
+//	 * @throws IOException
+//	 */
+//	@PutMapping("/update")
+//	public ResponseEntity<Response> update(@RequestBody NoteDto newNote,@RequestHeader String noteId) throws IOException
+//	{
+//		return new ResponseEntity<Response>(elasticSearchService.update(newNote,noteId),HttpStatus.OK);
+//	}
+//	
+//	/**
+//	 * @Pupose - Used to delete note
+//	 * @param noteId - Accepts note id
+//	 * @return - Status of operation
+//	 * @throws IOException
+//	 */
+//	@PutMapping("/delete")
+//	public ResponseEntity<Response> delete(@RequestHeader String noteId) throws IOException
+//	{
+//		return new ResponseEntity<Response>(elasticSearchService.delete(noteId),HttpStatus.OK);
+//	}
+//	
+//	/**
+//	 * @Pupose - Used to get all notes
+//	 * @return - Status of operation
+//	 * @throws IOException
+//	 */
+//	@GetMapping("/getAllNotes")
+//	public ResponseEntity<Response> getAllNotes() throws IOException
+//	{
+//		return new ResponseEntity<Response>(elasticSearchService.findAll(),HttpStatus.OK);
+//	}
+//	
+//	/**
+//	 * @Pupose - Used to search note by title
+//	 * @param title - Accepts title
+//	 * @return - Status of operation
+//	 * @throws IOException
+//	 */
+//	@PutMapping("/searchByTitle")
+//	public ResponseEntity<Response> searchByTitle(@RequestHeader String title) throws IOException
+//	{
+//		return new ResponseEntity<Response>(elasticSearchService.searchByTitle(title),HttpStatus.OK);
+//	}
 }

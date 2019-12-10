@@ -20,25 +20,25 @@ import org.springframework.context.annotation.Configuration;
  ******************************************************************************/
 @Configuration
 public class ElasticsearchConfig {
-
-	@Value("${elasticsearch.host}")
-	private String elasticsearchHost;
-
-	@Value("${elasticsearch.port}")
-	private Integer elasticsearchPort;
-
-	@Value("http")
-	private String elasticsearchScheme;
-
-	@Bean(destroyMethod = "close")
-	public RestHighLevelClient client() {
-		System.out.println(elasticsearchHost);
-		System.out.println(elasticsearchPort);
-		System.out.println(elasticsearchScheme);
-
-		RestHighLevelClient client = new RestHighLevelClient(
-				RestClient.builder(new HttpHost(elasticsearchHost, elasticsearchPort, elasticsearchScheme)));
-
-		return client;
-	}
+//
+//	@Value("${elasticsearch.host}")
+//	private String elasticsearchHost;
+//
+//	@Value("${elasticsearch.port}")
+//	private Integer elasticsearchPort;
+//
+//	@Value("http")
+//	private String elasticsearchScheme;
+//
+//	@Bean(destroyMethod = "close")
+//	public RestHighLevelClient client() {
+//		System.out.println(elasticsearchHost);
+//		System.out.println(elasticsearchPort);
+//		System.out.println(elasticsearchScheme);
+//
+//		RestHighLevelClient client = new RestHighLevelClient(
+//				RestClient.builder(new HttpHost(elasticsearchHost, elasticsearchPort, elasticsearchScheme)));
+//
+//		return client;
+//	}
 }
