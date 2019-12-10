@@ -36,7 +36,7 @@ public class Note {
 	
 	@Id
 	private String id;
-	private String username;
+	private String userId;
 	private String title;
 	private String description;
 	private String color;
@@ -51,4 +51,5 @@ public class Note {
 	@JsonIgnore
 	@DBRef
 	private List<Label> labelList = new ArrayList<Label>();
+		
 }

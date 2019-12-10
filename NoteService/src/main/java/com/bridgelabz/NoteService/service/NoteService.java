@@ -1,9 +1,9 @@
 package com.bridgelabz.NoteService.service;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
-import com.bridgelabz.NoteService.dto.ColaboratorDto;
 import com.bridgelabz.NoteService.dto.NoteDto;
 import com.bridgelabz.NoteService.model.Note;
 import com.bridgelabz.NoteService.response.Response;
@@ -22,18 +22,18 @@ import com.bridgelabz.NoteService.response.Response;
 
 public interface NoteService {
 	public Response addNote(NoteDto newNote,String token);
-	public Response deleteNode(String id);
-	public Response update(String id,NoteDto note);
+	public Response deleteNode(String id, String token);
+	public Response update(String id,NoteDto note, String token);
 	public Response getNoteList();
-	public Response getNoteByUsername(String username);
-	public Response sortByTitle();
-	public Response sortByDate();
-	public Response addColaborator(ColaboratorDto colaborator);
-	public Response removeColaborator(ColaboratorDto colaborator);
+	public Response getNoteByUserId(String token);
+	public Response sortByTitle(String token);
+	public Response sortByDate(String token);
+	public Response addColaborator(String noteId,List<String> userNameList,String token);
+	public Response removeColaborator(String noteId,List<String> userNameList,String token);
 	public Map<String,Note> check();
-	public Response pin(String noteId);
-	public Response archive(String noteId);
-	public Response trash(String noteId);
-	public Response addReminder(Date date, String noteId);
-	public Response deleteReminder(String noteId);
+	public Response pin(String noteId, String token);
+	public Response archive(String noteId, String token);
+	public Response trash(String noteId, String token);
+	public Response addReminder(Date date, String noteId, String token);
+	public Response deleteReminder(String noteId, String token);
 }

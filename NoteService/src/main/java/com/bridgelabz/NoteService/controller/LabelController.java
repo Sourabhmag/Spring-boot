@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,10 +46,10 @@ public class LabelController {
 	 * @return - List of labels
 	 */
 	@PostMapping("/getlabel")
-	public ResponseEntity<Response> getLabel(@RequestParam String username)
+	public ResponseEntity<Response> getLabel(@RequestHeader String token)
 	{
 		
-		return new ResponseEntity<Response>(labelService.getLabelByUsername(username),HttpStatus.OK);
+		return new ResponseEntity<Response>(labelService.getLabelByUsername(token),HttpStatus.OK);
 	}
 	
 	
@@ -59,7 +60,7 @@ public class LabelController {
 	 * @return - status
 	 */
 	@PostMapping("/add")
-	public ResponseEntity<Response> addnote(@RequestBody @Valid LabelDto label,@RequestParam String token)
+	public ResponseEntity<Response> addLabel(@RequestBody @Valid LabelDto label,@RequestHeader String token)
 	{
 		return new ResponseEntity<Response>(labelService.addLabel(label,token),HttpStatus.OK);
 	}
@@ -70,9 +71,9 @@ public class LabelController {
 	 * @return - status
 	 */
 	@DeleteMapping("/delete")
-	public ResponseEntity<Response> deleteNote(@RequestParam String id)
+	public ResponseEntity<Response> deleteLabel(@RequestParam String labelId,@RequestHeader String token)
 	{
-		return new ResponseEntity<Response>(labelService.deleteLabel(id),HttpStatus.OK);
+		return new ResponseEntity<Response>(labelService.deleteLabel(labelId,token),HttpStatus.OK);
 	}
 	
 	/**
@@ -82,9 +83,9 @@ public class LabelController {
 	 * @return - Status
 	 */
 	@PutMapping("/update")
-	public ResponseEntity<Response> update(@RequestParam String id,@RequestBody @Valid LabelDto label)
+	public ResponseEntity<Response> updateLabel(@RequestParam String labelId,@RequestBody @Valid LabelDto label,@RequestHeader String token)
 	{
-		return new ResponseEntity<Response>(labelService.updateLabel(id, label),HttpStatus.OK);
+		return new ResponseEntity<Response>(labelService.updateLabel(labelId, label,token),HttpStatus.OK);
 	}
 	
 	/**
@@ -94,9 +95,9 @@ public class LabelController {
 	 * @return - status
 	 */
 	@PostMapping("/assignNote")
-	public ResponseEntity<Response> assignNoteToLabel(@RequestParam String noteId,@RequestParam String labelId)
+	public ResponseEntity<Response> assignNoteToLabel(@RequestParam String noteId,@RequestParam String labelId,@RequestHeader String token)
 	{
-		return new ResponseEntity<Response>(labelService.assignNoteToLabel(noteId,labelId),HttpStatus.OK);
+		return new ResponseEntity<Response>(labelService.assignNoteToLabel(noteId,labelId,token),HttpStatus.OK);
 	}
 	
 	/**
@@ -106,9 +107,9 @@ public class LabelController {
 	 * @return - status
 	 */
 	@PostMapping("/deleteNote")
-	public ResponseEntity<Response> deleteNoteFromLabel(@RequestParam String noteId,@RequestParam String labelId)
+	public ResponseEntity<Response> deleteNoteFromLabel(@RequestParam String noteId,@RequestParam String labelId,@RequestHeader String token)
 	{
-		return new ResponseEntity<Response>(labelService.deleteNoteFromLabel(noteId,labelId),HttpStatus.OK);
+		return new ResponseEntity<Response>(labelService.deleteNoteFromLabel(noteId,labelId,token),HttpStatus.OK);
 	}
 	
 	
@@ -118,8 +119,8 @@ public class LabelController {
 	 * @return - List of notes
 	 */
 	@PostMapping("/getNotes")
-	public ResponseEntity<Response> getNoteByLabelId(@RequestParam String labelId)
+	public ResponseEntity<Response> getNoteByLabelId(@RequestParam String labelId,@RequestHeader String token)
 	{
-		return new ResponseEntity<Response>(labelService.getNoteByLabelId(labelId),HttpStatus.OK);
+		return new ResponseEntity<Response>(labelService.getNoteByLabelId(labelId,token),HttpStatus.OK);
 	}
 }

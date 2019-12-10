@@ -18,6 +18,6 @@ import com.bridgelabz.fundoouser.model.Registration;
  *
  ******************************************************************************/
 @Repository
-public interface UserRepository extends MongoRepository<Registration,Integer> {
+public interface UserRepository extends MongoRepository<Registration,String> {
 	public Optional<Registration> findByEmail(String email);
 }

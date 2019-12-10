@@ -20,11 +20,11 @@ import com.bridgelabz.NoteService.response.Response;
 public interface LabelService {
 
 	Response addLabel(LabelDto label, String token);
-	Response deleteLabel(String id);
-	Response updateLabel(String id, LabelDto note);
+	Response deleteLabel(String id, String token);
+	Response updateLabel(String id, LabelDto note, String token);
 	Response getLabelByUsername(String username);
-	Response assignNoteToLabel(String noteId,String labelId);
-	Response deleteNoteFromLabel(String noteId,String labelId);
-	Response getNoteByLabelId(String labelId);
+	Response assignNoteToLabel(String noteId,String labelId, String token);
+	Response deleteNoteFromLabel(String noteId,String labelId,String token);
+	Response getNoteByLabelId(String labelId, String token);
 
 }

@@ -6,6 +6,7 @@ public class MessegeReference {
 	public static final String NOTE_NOT_FOUND = "Requested Note not found in database";
 	public static final String LABEL_NOT_FOUND = "Requested label not found in database";
 	public static final String NOTE_DELETED = "Note Deleted successfully";
+	public static final String NOTE_UNTRASHED = "Note is not present in trash";
 	public static final String LABEL_DELETED = "Label Deleted successfully";
 	public static final String NOTE_UPDATED = "Note updated successfully";
 	public static final String LABEL_UPDATED = "Label updated successfully";

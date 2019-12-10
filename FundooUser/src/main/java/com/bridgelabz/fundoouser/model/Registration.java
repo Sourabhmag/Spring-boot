@@ -1,5 +1,7 @@
 package com.bridgelabz.fundoouser.model;
 
+import java.io.Serializable;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,7 +20,11 @@ import lombok.Data;
  ******************************************************************************/
 @Document(collection = "User")
 @Data
-public class Registration {
+public class Registration  implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5079019982655829051L;
 	@Id
 	private String id;
 	private String name;

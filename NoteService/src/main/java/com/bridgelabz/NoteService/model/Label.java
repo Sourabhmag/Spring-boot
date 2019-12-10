@@ -31,7 +31,7 @@ public class Label {
 	private String title;
 	private LocalDateTime createdDate;
 	private LocalDateTime updatededDate;
-	private String username;
+	private String userId;
 	@JsonIgnore
 	@DBRef(lazy = true)
 	private List<Note> noteList = new ArrayList<Note>();

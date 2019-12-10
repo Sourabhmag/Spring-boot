@@ -39,5 +39,4 @@ public class NoteDto {
 	private boolean pin;
 	private boolean archive;
 	private boolean trash;
-	private boolean reminder;
 }

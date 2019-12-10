@@ -40,7 +40,6 @@ public class Registerdto {
 	@NotBlank(message = "checkPassword is required")
 	@Size(min = 3,max = 20)
 	private String checkPassword;
-	private String profilePic;
 	private boolean validate;
 	
 	public boolean getV()
