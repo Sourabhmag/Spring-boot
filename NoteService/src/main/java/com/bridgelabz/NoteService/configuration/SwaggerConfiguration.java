@@ -7,7 +7,18 @@ import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
+/******************************************************************************
+ *  Compilation:  javac -d bin RedisConfig.java
+ *  Execution:    
+ *              
+ *  
+ *  Purpose:       main purpose this class is to configure Swagger
+ *
+ *  @author  Sourabh Magdum
+ *  @version 1.0
+ *  @since   09-12-2019
+ *
+ ******************************************************************************/
 @Configuration
 @EnableSwagger2
 public class SwaggerConfiguration
